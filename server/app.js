@@ -1,8 +1,11 @@
 import Koa from "koa";
 import axios from "axios";
 import querystring from 'querystring';
+import connect from './db/connect';
+import Music from './models/music';
 
 const app = new Koa();
+connect();
 app.use(async ctx => {
   // const name = "binyellow";
   try {
@@ -29,7 +32,15 @@ app.use(async ctx => {
         'Accept-Encoding': 'gzip',
       },
     });
-    console.log(result.data.data);
+    // console.log(result.data.data);
+    Music.bulkWrite(result.data.data.map(n=>{
+      console.log(n.title);
+      return {
+        insertOne: {
+          document: n
+        }
+      }
+    }));
     ctx.body = result.data.data;
   } catch (err) {
     console.error(err);
