@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "koa": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,8 +21,17 @@
   },
   "homepage": "https://github.com/binyellow/SSR-TS-ALL-MUSIC#readme",
   "dependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/register": "^7.4.4",
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "koa": "^2.7.0",
     "next": "^8.1.0",
+    "querystring": "^0.2.0",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "superagent": "^5.0.5"
   }
 }
