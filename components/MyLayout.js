@@ -1,18 +1,15 @@
 // components/MyLayout.js
+import { Button } from 'antd';
+import Header from './Header';
 
-import Header from './Header'
-
-const layoutStyle = {
-  margin: 20,
-  padding: 20,
-  border: '1px solid #DDD'
-}
+import styles from './MyLayout.less';
 
 const withLayout = Page => {
   return () => (
-    <div style={layoutStyle}>
+    <div className={styles.test}>
       <Header />
       <Page />
+      <Button>wo ai ni</Button>
     </div>
   )
 }
