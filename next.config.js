@@ -17,19 +17,18 @@ if (typeof require !== "undefined") {
 }
 
 module.exports = withTypescript(
-  // withLess({
-  //   lessLoaderOptions: {
-  //     javascriptEnabled: true,
-  //     modifyVars: themeVariables // make your antd custom effective
-  //   },
-    
-  // })
-  {webpack(config, options) {
-    // Do not run type checking twice:
-    if (options.isServer) config.plugins.push(new ForkTsCheckerWebpackPlugin());
-
-    config.resolve.extensions = [".ts", ".tsx", ".js"];
-    return config;
-  }}
+  withLess({
+    lessLoaderOptions: {
+      javascriptEnabled: true,
+      modifyVars: themeVariables // make your antd custom effective
+    },
+    webpack(config, options) {
+      // Do not run type checking twice:
+      if (options.isServer) config.plugins.push(new ForkTsCheckerWebpackPlugin());
+  
+      config.resolve.extensions = [".ts", ".tsx", ".js"];
+      return config;
+    }
+  })
 )
 
