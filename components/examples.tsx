@@ -16,7 +16,7 @@ function Examples ({ lastUpdate, light }: paramsProps) {
   )
 }
 
-function mapStateToProps (state: { exampleReducer: object }) {
+function mapStateToProps (state: { exampleReducer: any }) {
   const { lastUpdate, light } = state.exampleReducer
   return { lastUpdate, light }
 }

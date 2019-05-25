@@ -46,5 +46,8 @@
     "redux-devtools-extension": "^2.13.8",
     "superagent": "^5.0.5",
     "typescript": "^3.4.5"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.18"
   }
 }

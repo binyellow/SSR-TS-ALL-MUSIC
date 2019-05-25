@@ -44,7 +44,7 @@ const reducer = combineReducers({
 });
 
 // ACTIONS
-export const serverRenderClock = () => {
+export const serverRenderClock = (isServer) => {
   return { type: actionTypes.TICK, light: false, ts: Date.now() };
 };
 export const startClock = () => {

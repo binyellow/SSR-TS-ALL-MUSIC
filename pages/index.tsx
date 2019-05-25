@@ -3,14 +3,20 @@ import { connect } from 'react-redux'
 import { startClock, serverRenderClock } from '../store'
 import Examples from '../components/examples'
 
-class Index extends React.Component {
-  static getInitialProps ({ reduxStore, req }: { reduxStore: object }) {
+interface IndexProps {
+  startClock: () => any;
+};
+
+class Index extends React.Component<IndexProps> {
+  static getInitialProps ({ reduxStore, req }: { reduxStore: any, req: any }) {
     const isServer = !!req
     // DISPATCH ACTIONS HERE ONLY WITH `reduxStore.dispatch`
     reduxStore.dispatch(serverRenderClock(isServer))
 
     return {}
   }
+
+  timer: number = 0;
 
   componentDidMount () {
     // DISPATCH ACTIONS HERE FROM `mapDispatchToProps`
