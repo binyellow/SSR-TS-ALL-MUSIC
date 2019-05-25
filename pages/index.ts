@@ -4,9 +4,8 @@ import { startClock, serverRenderClock } from '../store'
 import Examples from '../components/examples'
 
 class Index extends React.Component {
-  static getInitialProps ({ reduxStore, req }) {
+  static getInitialProps ({ reduxStore, req }: { reduxStore: object }) {
     const isServer = !!req
-    console.log(req);
     // DISPATCH ACTIONS HERE ONLY WITH `reduxStore.dispatch`
     reduxStore.dispatch(serverRenderClock(isServer))
 
