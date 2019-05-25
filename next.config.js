@@ -14,9 +14,11 @@ if (typeof require !== 'undefined') {
   require.extensions['.less'] = file => {}
 }
 
-module.exports = withLess({
-  lessLoaderOptions: {
-    javascriptEnabled: true,
-    modifyVars: themeVariables, // make your antd custom effective
-  },
-})
+module.exports = {
+  ...withLess({
+    lessLoaderOptions: {
+      javascriptEnabled: true,
+      modifyVars: themeVariables, // make your antd custom effective
+    },
+  })
+}

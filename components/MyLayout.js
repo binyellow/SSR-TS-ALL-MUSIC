@@ -9,7 +9,7 @@ const withLayout = Page => {
     <div className={styles.test}>
       <Header />
       <Page />
-      <Button>wo ai ni</Button>
+      <Button type="primary">wo ai ni</Button>
     </div>
   )
 }
