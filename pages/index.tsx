@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { startClock, addMusic, serverRenderClock } from '../store'
+import { startClock, addMusic } from '../store'
 import Examples from '../components/examples'
 import { queryList } from '../service/music';
 import { getOrCreateStore } from '../lib/with-redux-store';
@@ -10,18 +10,18 @@ interface IndexProps {
 };
 
 class Index extends React.Component<IndexProps> {
-  constructor(props) {
+  constructor(props: IndexProps) {
     super(props);
     this.fetchList = this.fetchList.bind(this);
   }
 
-  static getInitialProps ({ reduxStore, req }: { reduxStore: { dispatch: object }, req: object }) {
-    const isServer: boolean = !!req
-    // DISPATCH ACTIONS HERE ONLY WITH `reduxStore.dispatch`
-    reduxStore.dispatch(serverRenderClock(isServer))
+  // static getInitialProps ({ reduxStore, req }: { reduxStore: { dispatch: object }, req: object }) {
+  //   // const isServer: boolean = !!req
+  //   // DISPATCH ACTIONS HERE ONLY WITH `reduxStore.dispatch`
+  //   // reduxStore.dispatch(serverRenderClock(isServer))
 
-    return {}
-  }
+  //   return {}
+  // }
 
   timer: number = 0;
 
@@ -39,9 +39,8 @@ class Index extends React.Component<IndexProps> {
   }
 
   fetchList() {
-    return (dispatch, getState) => {
-      return queryList().then((res: object)=> {
-        console.log(res.data);
+    return (dispatch: object) => {
+      return queryList().then((res: { data: object, status: number })=> {
         if(res.status === 200) {
           dispatch(addMusic(res.data));
         }
