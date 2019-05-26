@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { notification } from 'antd';
+import axios from "axios";
+import { notification } from "antd";
 
 notification.config({
-  placement: 'bottomRight',
+  placement: "bottomRight"
 });
 
 function checkStatus(response: any) {
@@ -18,14 +18,19 @@ function checkStatus(response: any) {
 }
 
 export default function request(url: string, options: any) {
-  const newOptions = { responseType: 'json', ...options };
+  const newOptions = { responseType: "json", ...options };
   // newOptions.body = JSON.stringify(newOptions.body);
-  const token = sessionStorage.getItem('token');
+  const token = sessionStorage.getItem("token");
+  const params = token
+    ? {
+        headers: {
+          Authorization: `bearer ${token}`
+        }
+      }
+    : {};
   return axios({
     url,
-    headers: {
-      'Authorization': `bearer ${token}`
-    },
+    ...params,
     ...newOptions
   })
     .then(checkStatus)
@@ -33,7 +38,7 @@ export default function request(url: string, options: any) {
       if (response.status === 204) {
         return {};
       }
-      if (newOptions.responseType === 'blob') {
+      if (newOptions.responseType === "blob") {
         return response.blob();
       }
       return response;
@@ -48,7 +53,7 @@ export default function request(url: string, options: any) {
 
       notification.error({
         message: `请求错误 ${status}`,
-        description: e.message,
+        description: e.message
       });
     });
 }

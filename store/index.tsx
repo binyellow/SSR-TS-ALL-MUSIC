@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
+import thunk from 'redux-thunk';
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const exampleInitialState = {
@@ -10,7 +11,7 @@ const exampleInitialState = {
 const musicInitialState = {
   musics: [
     {
-      id: "5ce8cdabf7bbb2251f9f6cf2",
+      _id: "5ce8cdabf7bbb2251f9f6cf2",
       type: "qq",
       link: "http://y.qq.com/n/yqq/song/003OUlho2HcRHC.html",
       songId: "003OUlho2HcRHC",
@@ -110,8 +111,14 @@ export const actionTypes = {
   RESET: "RESET"
 };
 
+interface exampleActionProps {
+  type: string,
+  payload: object,
+  ts: string,
+  light: string,
+}
 // REDUCERS
-export const exampleReducer = (state = exampleInitialState, action) => {
+export const exampleReducer = (state = exampleInitialState, action: exampleActionProps) => {
   switch (action.type) {
     case actionTypes.TICK:
       return Object.assign({}, state, {
@@ -135,14 +142,19 @@ export const exampleReducer = (state = exampleInitialState, action) => {
   }
 };
 
-export const musicReducer = (state = musicInitialState, action) => {
+interface musicActionProps {
+  type: string,
+  payload: object
+}
+
+export const musicReducer = (state = musicInitialState, action: musicActionProps) => {
   switch (action.type) {
     case 'ADD':
       return {
         ...state,
         musics: [
           ...state.musics,
-          action.payload,
+          ...action.payload,
         ]
       };
       break;
@@ -151,13 +163,18 @@ export const musicReducer = (state = musicInitialState, action) => {
   }
 }
 
+// music action
+export const addMusic = (payload) => {
+  return { type: 'ADD', payload };
+};
+
 const reducer = combineReducers({
   exampleReducer,
   musicReducer
 });
 
 // ACTIONS
-export const serverRenderClock = isServer => {
+export const serverRenderClock = () => {
   return { type: actionTypes.TICK, light: false, ts: Date.now() };
 };
 export const startClock = () => {
@@ -180,6 +197,6 @@ export function initializeStore(initialState = exampleInitialState) {
   return createStore(
     reducer,
     initialState,
-    composeWithDevTools(applyMiddleware())
+    composeWithDevTools(applyMiddleware(thunk))
   );
 }

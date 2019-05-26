@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 // import Clock from './clock'
 // import Counter from './counter'
@@ -12,6 +12,7 @@ interface paramsProps {
 interface musicItemProps {
   id: string,
   url: string,
+  title: string,
 }
 
 function Examples({ lastUpdate, light, musics }: paramsProps) {
@@ -20,10 +21,10 @@ function Examples({ lastUpdate, light, musics }: paramsProps) {
       音乐{lastUpdate}
       {light}
       {
-        musics.map((item: musicItemProps)=>(
-          <div>
+        musics.map((item: musicItemProps) => (
+          <div key={item._id}>
             <p>{`歌曲: ${item.title}`}</p>
-            <audio controls key={item.id} src={item.url} />
+            <audio controls src={item.url} />
           </div>
         ))
       }
@@ -31,9 +32,9 @@ function Examples({ lastUpdate, light, musics }: paramsProps) {
   );
 }
 
-function mapStateToProps(state: { exampleReducer: paramsProps }) {
-  const { lastUpdate, light } = state.exampleReducer;
-  const { musics = [] } = state.musicReducer;
+function mapStateToProps({ exampleReducer, musicReducer }: { exampleReducer: paramsProps, musicReducer: paramsProps }) {
+  const { lastUpdate, light } = exampleReducer;
+  const { musics = [] } = musicReducer;
   return { lastUpdate, light, musics };
 }
 
